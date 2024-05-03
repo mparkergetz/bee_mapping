@@ -22,13 +22,12 @@ def process_file(file):
     print(f'Processing: {column_name}\n')
 
     with rasterio.open(file_path) as src:
-        array = src.read(1)  # Read the entire file into an array
+        array = src.read(1)  
         df[column_name] = df.apply(lambda row: get_value_from_array(row['lat'], row['lon'], src, array), axis=1)
 
 df = pd.read_csv('points.csv')
 
-# Assuming data_loc_date is your DataFrame with lat and lon
-with ThreadPoolExecutor(max_workers=4) as executor:  # Adjust max_workers based on your CPU
+with ThreadPoolExecutor(max_workers=4) as executor:  
     executor.map(process_file, all_files)
 
 df.to_csv('bio_vars.csv')
