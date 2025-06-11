@@ -5,3 +5,5 @@
 *.zip
 data/
 *.svg
+*.pdf
+*.tiff
